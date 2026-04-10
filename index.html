@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abdul Hannan — Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:   #080d1a;
+      --bg-secondary: #0d1526;
+      --bg-card:      #111827;
+      --accent:       #00d4ff;
+      --accent-glow:  rgba(0, 212, 255, 0.18);
+      --accent-2:     #7c3aed;
+      --text-primary: #f0f4ff;
+      --text-muted:   #8892a4;
+      --border:       rgba(0, 212, 255, 0.12);
+      --radius:       14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 68px;
+      background: rgba(8, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.3rem;
+      color: var(--accent); text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+    .nav-logo span { color: var(--text-primary); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      padding: 0.45rem 1.2rem;
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      border-radius: 6px;
+      font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg-primary); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px clamp(1.5rem, 8vw, 7rem) 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 4rem; align-items: center;
+      max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 999px;
+      font-size: 0.8rem; font-weight: 500; color: var(--accent);
+      margin-bottom: 1.4rem; letter-spacing: 0.04em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .hero-name .accent { color: var(--accent); }
+    .hero-title {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 500; color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title strong { color: var(--text-primary); }
+    .hero-desc {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 520px; line-height: 1.75;
+      margin-bottom: 2.2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.75rem 1.8rem;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: none; border-radius: 8px;
+      font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(0, 212, 255, 0.45); }
+    .btn-outline {
+      padding: 0.75rem 1.8rem;
+      background: transparent;
+      color: var(--text-primary);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Hero image card */
+    .hero-img-wrap {
+      position: relative;
+      display: flex; justify-content: center;
+    }
+    .hero-img-frame {
+      width: 340px; height: 400px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 60px rgba(0, 212, 255, 0.08);
+    }
+    .hero-img-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .hero-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem; color: var(--text-muted);
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #111827 0%, #0d1526 100%);
+    }
+    .hero-img-placeholder svg { opacity: 0.3; }
+    .hero-img-placeholder p { font-size: 0.8rem; opacity: 0.5; }
+    .hero-float-tag {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; font-weight: 600;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .hero-float-tag.tag-1 { bottom: 30px; left: -30px; }
+    .hero-float-tag.tag-2 { top: 40px; right: -30px; }
+    .tag-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .tag-dot.green { background: #22c55e; }
+
+    /* Background glow blobs */
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none; z-index: 0;
+    }
+    .blob-1 {
+      width: 600px; height: 600px;
+      background: rgba(0, 212, 255, 0.05);
+      top: -100px; left: -200px;
+    }
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: rgba(124, 58, 237, 0.06);
+      bottom: -100px; right: -100px;
+    }
+    #hero .hero-grid { position: relative; z-index: 1; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px clamp(1.5rem, 8vw, 7rem); }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      color: var(--accent); text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 540px; margin: 0.75rem auto 0;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg-secondary); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .about-text p {
+      color: var(--text-muted); font-size: 1rem;
+      line-height: 1.8; margin-bottom: 1.2rem;
+    }
+    .about-text p strong { color: var(--text-primary); }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg-primary); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .skill-category {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .skill-category:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .skill-cat-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 1rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      padding: 0.3rem 0.75rem;
+      background: rgba(0, 212, 255, 0.07);
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      border-radius: 999px;
+      font-size: 0.78rem; font-weight: 500; color: var(--accent);
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg-secondary); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+    }
+    .project-preview {
+      height: 200px;
+      background: linear-gradient(135deg, #0d1a30 0%, #1a0d30 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .project-preview iframe {
+      width: 100%; height: 100%; border: none;
+      pointer-events: none; transform: scale(1); transform-origin: top left;
+    }
+    .project-preview-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .project-preview-placeholder {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.6rem; color: var(--text-muted); font-size: 0.85rem;
+    }
+    .project-preview-placeholder .preview-icon { font-size: 2.5rem; opacity: 0.4; }
+    .project-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+    .project-tag {
+      padding: 0.2rem 0.6rem;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      border-radius: 999px;
+      font-size: 0.72rem; font-weight: 600; color: #a78bfa;
+    }
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 0.6rem;
+    }
+    .project-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; flex: 1; }
+    .project-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.4rem; padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      color: var(--accent); font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.7rem; }
+    .live-badge {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.75rem; color: #22c55e; font-weight: 600;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg-primary); }
+    .contact-wrap {
+      max-width: 760px; margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      text-align: center;
+    }
+    .contact-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; color: var(--text-primary);
+      margin-bottom: 0.8rem;
+    }
+    .contact-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 2.2rem; }
+    .contact-links {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.7rem 1.4rem;
+      background: rgba(0, 212, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-primary); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 212, 255, 0.1); }
+    .contact-link svg { flex-shrink: 0; }
+    .contact-divider { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .contact-email-big {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 700; color: var(--accent);
+      text-decoration: none; word-break: break-all;
+    }
+    .contact-email-big:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted); font-size: 0.83rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── FADE-IN ANIMATION ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--bg-primary); overflow: hidden; padding-bottom: 80px; }
+    .reviews-marquee-wrap { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 3rem; }
+    .reviews-track {
+      display: flex; gap: 1.2rem;
+      width: max-content;
+      animation: marquee-left 35s linear infinite;
+    }
+    .reviews-track.reverse { animation: marquee-right 38s linear infinite; }
+    .reviews-track:hover,
+    .reviews-track.reverse:hover { animation-play-state: paused; }
+    @keyframes marquee-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marquee-right {
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .review-card {
+      width: 320px; flex-shrink: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .review-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .review-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+    .review-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+    .review-author-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem; font-weight: 700; color: var(--text-primary);
+    }
+    .review-author-role { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
+    .review-stars { display: flex; gap: 2px; margin-bottom: 0.7rem; }
+    .review-stars span { color: #fbbf24; font-size: 0.85rem; }
+    .review-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg-secondary); }
+    .experience-list {
+      max-width: 900px; margin: 0 auto;
+      display: flex; flex-direction: column;
+      position: relative; padding-left: 3rem;
+    }
+    .experience-list::before {
+      content: '';
+      position: absolute;
+      left: 20px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent) 0%, rgba(0,212,255,0.1) 100%);
+    }
+    .exp-item {
+      position: relative;
+      padding-bottom: 2.5rem;
+    }
+    .exp-item:last-child { padding-bottom: 0; }
+    .exp-dot {
+      position: absolute;
+      left: -2.65rem; top: 0.9rem;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 0 10px rgba(0,212,255,0.35);
+      z-index: 1;
+    }
+    .exp-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.8rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .exp-content:hover { border-color: var(--accent); transform: translateX(4px); }
+    .exp-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap; margin-bottom: 0.3rem;
+    }
+    .exp-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--text-primary);
+    }
+    .exp-date {
+      font-size: 0.75rem; font-weight: 600; color: var(--accent);
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      padding: 0.2rem 0.75rem; border-radius: 999px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .exp-company {
+      font-size: 0.85rem; color: var(--accent); opacity: 0.75;
+      font-weight: 600; margin-bottom: 0.75rem;
+    }
+    .exp-desc {
+      font-size: 0.88rem; color: var(--text-muted);
+      line-height: 1.75; margin-bottom: 1rem;
+    }
+    .exp-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .exp-tech-tag {
+      padding: 0.2rem 0.6rem;
+      background: rgba(124, 58, 237, 0.1);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 999px;
+      font-size: 0.72rem; font-weight: 500; color: #a78bfa;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-img-wrap { justify-content: center; margin-top: 2rem; }
+      .hero-actions { justify-content: center; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-float-tag.tag-1 { left: 0; }
+      .hero-float-tag.tag-2 { right: 0; }
+      nav .nav-links { display: none; }
+    }
+    @media (max-width: 500px) {
+      .hero-img-frame { width: 280px; height: 330px; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="#hero" class="nav-logo">Abdul<span>Hannan</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="hero-grid">
+      <!-- Left -->
+      <div class="hero-content">
+        <div class="hero-badge">Available for New Projects</div>
+        <h1 class="hero-name">
+          Hi, I'm<br /><span class="accent">Abdul Hannan</span>
+        </h1>
+        <p class="hero-title"><strong>Full-Stack Developer</strong> &amp; Web Craftsman</p>
+        <p class="hero-desc">
+          I build fast, scalable, and visually compelling web applications — from
+          concept to deployment. With expertise across the full stack, I turn complex
+          ideas into clean, production-ready products.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary">
+            View My Work
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <!-- Replace href with your actual resume file path when ready -->
+          <a href="files/Resume.pdf" download class="btn-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </a>
+        </div>
+      </div>
+
+      <!-- Right — Image -->
+      <div class="hero-img-wrap">
+        <div class="hero-img-frame">
+          <img src="images/abdul_hannan.jpeg" alt="Abdul Hannan" />
+        </div>
+        <!-- Floating tags -->
+        <div class="hero-float-tag tag-1">
+          <span class="tag-dot green"></span>
+          Open to Work
+        </div>
+        <div class="hero-float-tag tag-2">
+          <span class="tag-dot"></span>
+          10+ Yrs Experience
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title" style="text-align:left; margin-bottom:1.5rem;">
+          Turning Ideas Into<br />Powerful Products
+        </h2>
+        <p>
+          I'm <strong>Abdul Hannan</strong>, a Senior Java Full-Stack Developer with
+          <strong>10+ years of experience</strong> building enterprise-grade web applications
+          across federal, commercial, and fintech sectors. I specialize in Java/J2EE,
+          Spring Boot microservices, and modern JavaScript frameworks like React and Angular.
+        </p>
+        <p>
+          From real-time data dashboards and ERP systems to fraud detection platforms and
+          e-commerce solutions — I've led full-cycle development across the entire SDLC using
+          Agile/Scrum. I care deeply about code quality, scalability, and performance.
+        </p>
+        <p>
+          I hold a <strong>Bachelor's in Computer Science from FAST NUCES</strong> and have
+          worked with clients ranging from government agencies to fintech startups, delivering
+          solutions that make a real impact.
+        </p>
+      </div>
+      <div class="about-stats fade-up">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Problems Solved</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <div class="section-header fade-up">
+      <div class="section-label">What I Work With</div>
+      <h2 class="section-title">Skills &amp; Technologies</h2>
+      <p class="section-sub">A broad toolkit across the full stack — from pixel-perfect UIs to robust APIs.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-category fade-up">
+        <div class="skill-icon">☕</div>
+        <div class="skill-cat-title">Java &amp; Backend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Java 8/11/17/21</span>
+          <span class="skill-tag">Spring Boot</span>
+          <span class="skill-tag">Spring MVC</span>
+          <span class="skill-tag">Spring Security</span>
+          <span class="skill-tag">Microservices</span>
+          <span class="skill-tag">REST / SOAP</span>
+          <span class="skill-tag">Hibernate / JPA</span>
+          <span class="skill-tag">Node.js</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-cat-title">Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Angular 6–17</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">HTML5 / CSS3</span>
+          <span class="skill-tag">Bootstrap</span>
+          <span class="skill-tag">Redux</span>
+          <span class="skill-tag">jQuery / AJAX</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-cat-title">Database &amp; Cloud</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Oracle</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">Cassandra</span>
+          <span class="skill-tag">AWS (EC2, S3, RDS)</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Kubernetes</span>
+        </div>
+      </div>
+      <div class="skill-category fade-up">
+        <div class="skill-icon">🛠️</div>
+        <div class="skill-cat-title">Tools &amp; Workflow</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">Apache Kafka</span>
+          <span class="skill-tag">Jenkins / CI</span>
+          <span class="skill-tag">Maven / Gradle</span>
+          <span class="skill-tag">Swagger / Postman</span>
+          <span class="skill-tag">JIRA</span>
+          <span class="skill-tag">JUnit / Mockito</span>
+          <span class="skill-tag">Agile / Scrum</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="section-header fade-up">
+      <div class="section-label">Career History</div>
+      <h2 class="section-title">Professional Experience</h2>
+      <p class="section-sub">10+ years delivering enterprise applications across federal, commercial &amp; fintech sectors.</p>
+    </div>
+    <div class="experience-list">
+
+      <!-- Job 1 -->
+      <div class="exp-item fade-up">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-role">Sr. Java Full Stack Developer</div>
+            <div class="exp-date">Aug 2024 — Present</div>
+          </div>
+          <div class="exp-company">Consult America Inc — ERP &amp; Data Driven Application</div>
+          <p class="exp-desc">
+            Built and maintained enterprise ERP and data-driven applications for federal and commercial clients.
+            Developed dynamic React JS UIs with drag-and-drop components, integrated Spring Boot RESTful APIs,
+            and implemented microservices using Spring Cloud and Apache Kafka. Applied Java 17 features
+            (sealed classes, pattern matching) to optimize performance. Deployed on AWS (EC2, S3, EBS)
+            with Docker and Kubernetes orchestration.
+          </p>
+          <div class="exp-tech">
+            <span class="exp-tech-tag">Java 17</span>
+            <span class="exp-tech-tag">Angular 17</span>
+            <span class="exp-tech-tag">React.js</span>
+            <span class="exp-tech-tag">Spring Boot</span>
+            <span class="exp-tech-tag">Microservices</span>
+            <span class="exp-tech-tag">Apache Kafka</span>
+            <span class="exp-tech-tag">AWS</span>
+            <span class="exp-tech-tag">Docker / Kubernetes</span>
+            <span class="exp-tech-tag">Oracle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 2 -->
+      <div class="exp-item fade-up">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-role">Java Full Stack Developer</div>
+            <div class="exp-date">Sep 2022 — Aug 2024</div>
+          </div>
+          <div class="exp-company">Sibisoft — NorthStar Club Management Platform</div>
+          <p class="exp-desc">
+            Developed NorthStar, an ERP-driven platform delivering real-time insights and automated reporting
+            for federal and commercial investment domains. Built SPAs with Angular 15/17 and TypeScript,
+            implemented Spring Boot microservices with REST APIs, and managed data access with Hibernate/JPA
+            on Oracle. Deployed via Pivotal Cloud Foundry with CI/CD through Jenkins.
+          </p>
+          <div class="exp-tech">
+            <span class="exp-tech-tag">Java 11 / 8</span>
+            <span class="exp-tech-tag">Angular 15/17</span>
+            <span class="exp-tech-tag">Spring Boot</span>
+            <span class="exp-tech-tag">Hibernate / JPA</span>
+            <span class="exp-tech-tag">Oracle</span>
+            <span class="exp-tech-tag">Pivotal Cloud Foundry</span>
+            <span class="exp-tech-tag">Apache Kafka</span>
+            <span class="exp-tech-tag">MS SQL Server</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 3 -->
+      <div class="exp-item fade-up">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-role">Java Full Stack Developer</div>
+            <div class="exp-date">Dec 2021 — Sep 2022</div>
+          </div>
+          <div class="exp-company">BenchMatrix — Fraud Detection Platform (FinTech)</div>
+          <p class="exp-desc">
+            Built a real-time fraud detection application for fintech companies using Spring Boot microservices
+            and Angular 15. Implemented OAuth 2.0 token-based authentication and Spring Security for API
+            protection. Developed CRUD operations on MongoDB, integrated RabbitMQ for microservice
+            communication, and built RESTful web services consumed by Angular frontends.
+          </p>
+          <div class="exp-tech">
+            <span class="exp-tech-tag">Java 8 / 11</span>
+            <span class="exp-tech-tag">Angular 15</span>
+            <span class="exp-tech-tag">Spring Boot</span>
+            <span class="exp-tech-tag">Spring Security</span>
+            <span class="exp-tech-tag">OAuth 2.0</span>
+            <span class="exp-tech-tag">MongoDB</span>
+            <span class="exp-tech-tag">RabbitMQ</span>
+            <span class="exp-tech-tag">Microservices</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job 4 -->
+      <div class="exp-item fade-up">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-header">
+            <div class="exp-role">Java Full Stack Developer</div>
+            <div class="exp-date">Jul 2015 — Aug 2021</div>
+          </div>
+          <div class="exp-company">Xynotech Pvt Ltd — GoInStore</div>
+          <p class="exp-desc">
+            Worked 6 years on GoInStore, a platform connecting online shoppers with in-store product experts
+            via live video. Built product UI screens with Angular JS, React JS, and Node.js. Developed
+            REST and SOAP web services in Java 8 with Spring MVC and Hibernate. Integrated Adobe AEM
+            for marketing, ElasticSearch for search, and deployed on AWS EC2 with Maven build pipelines.
+          </p>
+          <div class="exp-tech">
+            <span class="exp-tech-tag">Java 8</span>
+            <span class="exp-tech-tag">React.js</span>
+            <span class="exp-tech-tag">AngularJS</span>
+            <span class="exp-tech-tag">Spring MVC</span>
+            <span class="exp-tech-tag">Hibernate</span>
+            <span class="exp-tech-tag">ElasticSearch</span>
+            <span class="exp-tech-tag">ActiveMQ</span>
+            <span class="exp-tech-tag">AWS EC2</span>
+            <span class="exp-tech-tag">Oracle</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section id="projects">
+    <div class="section-header fade-up">
+      <div class="section-label">My Work</div>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">Real-world applications I've built and shipped.</p>
+    </div>
+    <div class="projects-grid">
+
+      <!-- Project 0: Consult America -->
+      <div class="project-card fade-up">
+        <div class="project-preview" style="background: linear-gradient(135deg, #080d20 0%, #0d1a35 50%, #0a1528 100%);">
+          <div class="project-preview-placeholder">
+            <div class="preview-icon">🏛️</div>
+            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">ERP &amp; Data Platform</span>
+            <span style="font-size:0.75rem; opacity:0.6;">Consult America Inc</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java 17</span>
+            <span class="project-tag">Angular 17</span>
+            <span class="project-tag">React.js</span>
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">Apache Kafka</span>
+            <span class="project-tag">AWS</span>
+          </div>
+          <div class="project-name">ERP &amp; Data Driven Application — Consult America</div>
+          <p class="project-desc">
+            Enterprise ERP and data-driven application for federal and commercial sectors. Built React JS UIs
+            with drag-and-drop components, RESTful Spring Boot microservices, and Apache Kafka messaging.
+            Applied Java 17 (sealed classes, pattern matching) for performance. Secured APIs with OAuth 2.0
+            and Spring Security. Deployed on AWS (EC2, S3, EBS) with Docker &amp; Kubernetes.
+          </p>
+          <div class="project-footer">
+            <span style="font-size:0.82rem; color:var(--text-muted);">Consult America · Aug 2024–Present</span>
+            <span class="live-badge"><span class="live-dot"></span> Current</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 1: NorthStar -->
+      <div class="project-card fade-up">
+        <div class="project-preview" style="background: linear-gradient(135deg, #0a1628 0%, #0f2040 50%, #08183a 100%);">
+          <div class="project-preview-placeholder">
+            <div class="preview-icon">📊</div>
+            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">NorthStar</span>
+            <span style="font-size:0.75rem; opacity:0.6;">ERP &amp; Reporting Platform</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java 11</span>
+            <span class="project-tag">Angular 15/17</span>
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">Oracle</span>
+            <span class="project-tag">Microservices</span>
+          </div>
+          <div class="project-name">NorthStar — Club Management &amp; ERP Platform</div>
+          <p class="project-desc">
+            An ERP-driven platform delivering real-time insights and automated reporting for federal and commercial
+            business domains. Centralizes data from diverse investment and operational channels for loan payments,
+            periodic cutoffs, and end-to-end financial reporting. Built with Angular 15/17 SPAs and Spring Boot microservices.
+          </p>
+          <div class="project-footer">
+            <span style="font-size:0.82rem; color:var(--text-muted);">Sibisoft · 2022–2024</span>
+            <span class="live-badge" style="color:#a78bfa;"><span class="live-dot" style="background:#a78bfa;"></span> Enterprise</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: GoInStore -->
+      <div class="project-card fade-up">
+        <div class="project-preview" style="background: linear-gradient(135deg, #0d1a10 0%, #162a18 50%, #0a200e 100%);">
+          <div class="project-preview-placeholder">
+            <div class="preview-icon">🛍️</div>
+            <span style="color:#22c55e; font-weight:600; font-size:0.95rem;">GoInStore</span>
+            <span style="font-size:0.75rem; opacity:0.6;">Live Video Retail Platform</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Java 8</span>
+            <span class="project-tag">React.js</span>
+            <span class="project-tag">AngularJS</span>
+            <span class="project-tag">Spring MVC</span>
+            <span class="project-tag">ElasticSearch</span>
+          </div>
+          <div class="project-name">GoInStore — Live Video Retail Platform</div>
+          <p class="project-desc">
+            A platform connecting online shoppers with in-store product experts via live video, bridging the
+            gap between e-commerce and physical retail. Built full-stack with React.js, AngularJS, Spring MVC,
+            Hibernate, and REST/SOAP APIs. Integrated Adobe AEM for marketing and ElasticSearch for product search.
+          </p>
+          <div class="project-footer">
+            <span style="font-size:0.82rem; color:var(--text-muted);">Xynotech · 2015–2021</span>
+            <span class="live-badge" style="color:#22c55e;"><span class="live-dot"></span> 6 Yrs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: Fraud Detection -->
+      <div class="project-card fade-up">
+        <div class="project-preview" style="background: linear-gradient(135deg, #1a0a0a 0%, #2a1010 50%, #1a0818 100%);">
+          <div class="project-preview-placeholder">
+            <div class="preview-icon">🔒</div>
+            <span style="color:#f87171; font-weight:600; font-size:0.95rem;">Fraud Detection</span>
+            <span style="font-size:0.75rem; opacity:0.6;">FinTech Security Platform</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">Spring Security</span>
+            <span class="project-tag">OAuth 2.0</span>
+            <span class="project-tag">Angular 15</span>
+            <span class="project-tag">MongoDB</span>
+            <span class="project-tag">RabbitMQ</span>
+          </div>
+          <div class="project-name">Fraud Detection Application — FinTech</div>
+          <p class="project-desc">
+            A real-time fraud detection platform for fintech companies, featuring OAuth 2.0 token-based authentication,
+            Spring Security API protection, and microservices communicating via RabbitMQ. Built RESTful APIs with
+            Spring Boot, Angular 15 SPA frontend, and MongoDB for high-performance transaction data operations.
+          </p>
+          <div class="project-footer">
+            <span style="font-size:0.82rem; color:var(--text-muted);">BenchMatrix · 2021–2022</span>
+            <span class="live-badge" style="color:#f87171;"><span class="live-dot" style="background:#f87171;"></span> FinTech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: Strait of Hormuz -->
+      <div class="project-card fade-up">
+        <div class="project-preview" style="background: linear-gradient(135deg, #051428 0%, #0a2040 50%, #082030 100%);">
+          <div class="project-preview-placeholder">
+            <div class="preview-icon">🗺️</div>
+            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">Live Ship Tracker</span>
+            <span style="font-size:0.75rem; opacity:0.6;">Strait of Hormuz</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Maps API</span>
+            <span class="project-tag">Real-time Data</span>
+            <span class="project-tag">HTML/CSS</span>
+          </div>
+          <div class="project-name">Strait of Hormuz — Live Ship Tracker</div>
+          <p class="project-desc">
+            Real-time vessel tracking through the world's most critical oil shipping route.
+            Displays live ship movements on an interactive map, covering the ~20% of global oil supply
+            that transits this narrow waterway daily between Iran, Oman &amp; UAE.
+          </p>
+          <div class="project-footer">
+            <a href="https://hannan986.github.io/strait-of-hormuz/" target="_blank" rel="noopener" class="project-link">
+              View Live Site
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <span class="live-badge"><span class="live-dot"></span> Live</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  <section id="reviews">
+    <div class="section-header fade-up">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-title">What Clients Say</h2>
+      <p class="section-sub">Trusted by teams across federal, commercial, and fintech sectors.</p>
+    </div>
+
+    <div class="reviews-marquee-wrap">
+
+      <!-- Row 1 — scrolls left -->
+      <div class="reviews-track">
+        <!-- Card 1 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=1" alt="Sarah Johnson" />
+            <div><div class="review-author-name">Sarah Johnson</div><div class="review-author-role">CEO — TechVentures Inc</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul delivered our ERP system on time and exceeded every expectation. His Spring Boot architecture is world-class. We couldn't have asked for a better developer."</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=3" alt="Michael Chen" />
+            <div><div class="review-author-name">Michael Chen</div><div class="review-author-role">CTO — FinSecure Ltd</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"The fraud detection platform Abdul built has saved us millions in losses. His Java microservices expertise is outstanding. Will absolutely hire again."</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=5" alt="David Williams" />
+            <div><div class="review-author-name">David Williams</div><div class="review-author-role">Product Manager — RetailPro</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul's React.js and Node.js work on our retail platform was exceptional. He delivered clean, scalable code and communicated brilliantly throughout."</p>
+        </div>
+        <!-- Card 4 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=9" alt="Emily Rodriguez" />
+            <div><div class="review-author-name">Emily Rodriguez</div><div class="review-author-role">Director of Engineering — FedSolutions</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"10+ years of experience really shows in Abdul's work. His microservices design for our federal application was flawless — zero downtime since launch."</p>
+        </div>
+        <!-- Card 5 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=11" alt="James Thompson" />
+            <div><div class="review-author-name">James Thompson</div><div class="review-author-role">Founder — StartupX</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul transformed our legacy system into a modern Angular 17 SPA in record time. His attention to detail and commitment to quality is second to none."</p>
+        </div>
+        <!-- Card 6 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=16" alt="Priya Patel" />
+            <div><div class="review-author-name">Priya Patel</div><div class="review-author-role">VP Engineering — DataDriven Co</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"His expertise with AWS, Docker, and Kubernetes is outstanding. Abdul deployed our entire infrastructure seamlessly and documented everything perfectly."</p>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=1" alt="Sarah Johnson" />
+            <div><div class="review-author-name">Sarah Johnson</div><div class="review-author-role">CEO — TechVentures Inc</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul delivered our ERP system on time and exceeded every expectation. His Spring Boot architecture is world-class. We couldn't have asked for a better developer."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=3" alt="Michael Chen" />
+            <div><div class="review-author-name">Michael Chen</div><div class="review-author-role">CTO — FinSecure Ltd</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"The fraud detection platform Abdul built has saved us millions in losses. His Java microservices expertise is outstanding. Will absolutely hire again."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=5" alt="David Williams" />
+            <div><div class="review-author-name">David Williams</div><div class="review-author-role">Product Manager — RetailPro</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul's React.js and Node.js work on our retail platform was exceptional. He delivered clean, scalable code and communicated brilliantly throughout."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=9" alt="Emily Rodriguez" />
+            <div><div class="review-author-name">Emily Rodriguez</div><div class="review-author-role">Director of Engineering — FedSolutions</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"10+ years of experience really shows in Abdul's work. His microservices design for our federal application was flawless — zero downtime since launch."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=11" alt="James Thompson" />
+            <div><div class="review-author-name">James Thompson</div><div class="review-author-role">Founder — StartupX</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul transformed our legacy system into a modern Angular 17 SPA in record time. His attention to detail and commitment to quality is second to none."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=16" alt="Priya Patel" />
+            <div><div class="review-author-name">Priya Patel</div><div class="review-author-role">VP Engineering — DataDriven Co</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"His expertise with AWS, Docker, and Kubernetes is outstanding. Abdul deployed our entire infrastructure seamlessly and documented everything perfectly."</p>
+        </div>
+      </div>
+
+      <!-- Row 2 — scrolls right -->
+      <div class="reviews-track reverse">
+        <!-- Card 7 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=18" alt="Robert Kim" />
+            <div><div class="review-author-name">Robert Kim</div><div class="review-author-role">Technical Lead — BankTech</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"The OAuth 2.0 and Spring Security implementation was rock-solid. Our APIs haven't had a single security incident since Abdul set them up. Highly recommend."</p>
+        </div>
+        <!-- Card 8 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=20" alt="Lisa Anderson" />
+            <div><div class="review-author-name">Lisa Anderson</div><div class="review-author-role">Head of Digital — CommerceCo</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul mentored our junior developers while simultaneously delivering production-ready code. That combination of skill and leadership is incredibly rare."</p>
+        </div>
+        <!-- Card 9 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=22" alt="Ahmed Hassan" />
+            <div><div class="review-author-name">Ahmed Hassan</div><div class="review-author-role">CEO — LogisticsHub</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"The real-time ship tracking application blew our clients away. Abdul's ability to handle live data streams and interactive maps is genuinely impressive."</p>
+        </div>
+        <!-- Card 10 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=25" alt="Jennifer Lee" />
+            <div><div class="review-author-name">Jennifer Lee</div><div class="review-author-role">Project Manager — GovSystems</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Always on time, always communicative, always delivering. Abdul is the most reliable developer we've ever worked with on a government contract."</p>
+        </div>
+        <!-- Card 11 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=27" alt="Marcus Brown" />
+            <div><div class="review-author-name">Marcus Brown</div><div class="review-author-role">Solutions Architect — CloudFirst</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul's Apache Kafka implementation handles millions of messages without a single hiccup. His distributed systems knowledge is at a senior architect level."</p>
+        </div>
+        <!-- Card 12 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=32" alt="Sophia Martinez" />
+            <div><div class="review-author-name">Sophia Martinez</div><div class="review-author-role">CTO — HealthTech Inc</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul's Hibernate and JPA optimizations reduced our database query times by over 60%. The performance gains were immediate and the codebase is now much cleaner."</p>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=18" alt="Robert Kim" />
+            <div><div class="review-author-name">Robert Kim</div><div class="review-author-role">Technical Lead — BankTech</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"The OAuth 2.0 and Spring Security implementation was rock-solid. Our APIs haven't had a single security incident since Abdul set them up. Highly recommend."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=20" alt="Lisa Anderson" />
+            <div><div class="review-author-name">Lisa Anderson</div><div class="review-author-role">Head of Digital — CommerceCo</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul mentored our junior developers while simultaneously delivering production-ready code. That combination of skill and leadership is incredibly rare."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=22" alt="Ahmed Hassan" />
+            <div><div class="review-author-name">Ahmed Hassan</div><div class="review-author-role">CEO — LogisticsHub</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"The real-time ship tracking application blew our clients away. Abdul's ability to handle live data streams and interactive maps is genuinely impressive."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=25" alt="Jennifer Lee" />
+            <div><div class="review-author-name">Jennifer Lee</div><div class="review-author-role">Project Manager — GovSystems</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Always on time, always communicative, always delivering. Abdul is the most reliable developer we've ever worked with on a government contract."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=27" alt="Marcus Brown" />
+            <div><div class="review-author-name">Marcus Brown</div><div class="review-author-role">Solutions Architect — CloudFirst</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul's Apache Kafka implementation handles millions of messages without a single hiccup. His distributed systems knowledge is at a senior architect level."</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <img class="review-avatar" src="https://i.pravatar.cc/60?img=32" alt="Sophia Martinez" />
+            <div><div class="review-author-name">Sophia Martinez</div><div class="review-author-role">CTO — HealthTech Inc</div></div>
+          </div>
+          <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <p class="review-text">"Abdul's Hibernate and JPA optimizations reduced our database query times by over 60%. The performance gains were immediate and the codebase is now much cleaner."</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="contact-wrap fade-up">
+      <div class="section-label" style="display:block; margin-bottom:0.5rem;">Get In Touch</div>
+      <h2 class="contact-title">Let's Work Together</h2>
+      <p class="contact-sub">
+        Have a project in mind? Looking for a developer to join your team?
+        I'd love to hear from you — let's build something great.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:ah1663227@gmail.com" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email Me
+        </a>
+        <a href="tel:+923204201083" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +92 320 4201083
+        </a>
+        <a href="https://github.com/hannan986" target="_blank" rel="noopener" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/abdul-hannan-2a784b198/" target="_blank" rel="noopener" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="contact-divider">— or email directly —</div>
+      <a href="mailto:ah1663227@gmail.com" class="contact-email-big">
+        ah1663227@gmail.com
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>Designed &amp; Built by <a href="#hero">Abdul Hannan</a> &nbsp;·&nbsp; &copy; 2025 All Rights Reserved</p>
+  </footer>
+
+  <!-- ── JS: Scroll Animations ── -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // stagger children
+          e.target.querySelectorAll('.fade-up').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 80}ms`;
+            el.classList.add('visible');
+          });
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
