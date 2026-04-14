@@ -11,15 +11,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-primary:   #080d1a;
-      --bg-secondary: #0d1526;
-      --bg-card:      #111827;
-      --accent:       #00d4ff;
-      --accent-glow:  rgba(0, 212, 255, 0.18);
+      --bg-primary:   #f0f4ff;
+      --bg-secondary: #e6eaf8;
+      --bg-card:      #ffffff;
+      --accent:       #0099bb;
+      --accent-glow:  rgba(0, 153, 187, 0.15);
       --accent-2:     #7c3aed;
-      --text-primary: #f0f4ff;
-      --text-muted:   #8892a4;
-      --border:       rgba(0, 212, 255, 0.12);
+      --text-primary: #0f172a;
+      --text-muted:   #4f6070;
+      --border:       rgba(0, 153, 187, 0.2);
       --radius:       14px;
     }
 
@@ -44,9 +44,10 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 clamp(1.5rem, 5vw, 4rem);
       height: 68px;
-      background: rgba(8, 13, 26, 0.85);
+      background: rgba(240, 244, 255, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
     }
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
@@ -90,8 +91,8 @@
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.35rem 1rem;
-      background: rgba(0, 212, 255, 0.08);
-      border: 1px solid rgba(0, 212, 255, 0.25);
+      background: rgba(0, 153, 187, 0.08);
+      border: 1px solid rgba(0, 153, 187, 0.22);
       border-radius: 999px;
       font-size: 0.8rem; font-weight: 500; color: var(--accent);
       margin-bottom: 1.4rem; letter-spacing: 0.04em;
@@ -137,9 +138,9 @@
       cursor: pointer; text-decoration: none;
       display: inline-flex; align-items: center; gap: 0.5rem;
       transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 24px rgba(0, 212, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 153, 187, 0.22);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(0, 212, 255, 0.45); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(0, 153, 187, 0.38); }
     .btn-outline {
       padding: 0.75rem 1.8rem;
       background: transparent;
@@ -165,7 +166,7 @@
       border: 1.5px solid var(--border);
       overflow: hidden;
       position: relative;
-      box-shadow: 0 0 60px rgba(0, 212, 255, 0.08);
+      box-shadow: 0 0 60px rgba(0, 153, 187, 0.12);
     }
     .hero-img-frame img {
       width: 100%; height: 100%;
@@ -178,7 +179,7 @@
       align-items: center; justify-content: center;
       gap: 1rem; color: var(--text-muted);
       font-size: 0.9rem;
-      background: linear-gradient(135deg, #111827 0%, #0d1526 100%);
+      background: linear-gradient(135deg, #dde3f5 0%, #ccd5ee 100%);
     }
     .hero-img-placeholder svg { opacity: 0.3; }
     .hero-img-placeholder p { font-size: 0.8rem; opacity: 0.5; }
@@ -191,7 +192,7 @@
       display: flex; align-items: center; gap: 0.6rem;
       font-size: 0.78rem; font-weight: 600;
       backdrop-filter: blur(10px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
     .hero-float-tag.tag-1 { bottom: 30px; left: -30px; }
     .hero-float-tag.tag-2 { top: 40px; right: -30px; }
@@ -205,12 +206,12 @@
     }
     .blob-1 {
       width: 600px; height: 600px;
-      background: rgba(0, 212, 255, 0.05);
+      background: rgba(0, 153, 187, 0.07);
       top: -100px; left: -200px;
     }
     .blob-2 {
       width: 500px; height: 500px;
-      background: rgba(124, 58, 237, 0.06);
+      background: rgba(124, 58, 237, 0.07);
       bottom: -100px; right: -100px;
     }
     #hero .hero-grid { position: relative; z-index: 1; }
@@ -292,8 +293,8 @@
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .skill-tag {
       padding: 0.3rem 0.75rem;
-      background: rgba(0, 212, 255, 0.07);
-      border: 1px solid rgba(0, 212, 255, 0.15);
+      background: rgba(0, 153, 187, 0.08);
+      border: 1px solid rgba(0, 153, 187, 0.2);
       border-radius: 999px;
       font-size: 0.78rem; font-weight: 500; color: var(--accent);
     }
@@ -317,7 +318,7 @@
     .project-card:hover {
       transform: translateY(-6px);
       border-color: var(--accent);
-      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 153, 187, 0.13);
     }
     .project-preview {
       height: 200px;
@@ -338,6 +339,10 @@
       gap: 0.6rem; color: var(--text-muted); font-size: 0.85rem;
     }
     .project-preview-placeholder .preview-icon { font-size: 2.5rem; opacity: 0.4; }
+    .project-preview-video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
     .project-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
     .project-tag {
@@ -394,14 +399,14 @@
     .contact-link {
       display: flex; align-items: center; gap: 0.6rem;
       padding: 0.7rem 1.4rem;
-      background: rgba(0, 212, 255, 0.06);
+      background: rgba(0, 153, 187, 0.06);
       border: 1px solid var(--border);
       border-radius: 10px;
       color: var(--text-primary); text-decoration: none;
       font-size: 0.9rem; font-weight: 500;
       transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 212, 255, 0.1); }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 153, 187, 0.1); }
     .contact-link svg { flex-shrink: 0; }
     .contact-divider { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem; }
     .contact-email-big {
@@ -483,7 +488,7 @@
       position: absolute;
       left: 20px; top: 8px; bottom: 8px;
       width: 2px;
-      background: linear-gradient(to bottom, var(--accent) 0%, rgba(0,212,255,0.1) 100%);
+      background: linear-gradient(to bottom, var(--accent) 0%, rgba(0,153,187,0.12) 100%);
     }
     .exp-item {
       position: relative;
@@ -497,7 +502,7 @@
       border-radius: 50%;
       background: var(--bg-primary);
       border: 2.5px solid var(--accent);
-      box-shadow: 0 0 10px rgba(0,212,255,0.35);
+      box-shadow: 0 0 10px rgba(0,153,187,0.28);
       z-index: 1;
     }
     .exp-content {
@@ -519,8 +524,8 @@
     }
     .exp-date {
       font-size: 0.75rem; font-weight: 600; color: var(--accent);
-      background: rgba(0,212,255,0.08);
-      border: 1px solid rgba(0,212,255,0.2);
+      background: rgba(0,153,187,0.08);
+      border: 1px solid rgba(0,153,187,0.2);
       padding: 0.2rem 0.75rem; border-radius: 999px;
       white-space: nowrap; flex-shrink: 0;
     }
@@ -873,10 +878,10 @@
 
       <!-- Project 0: Consult America -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #080d20 0%, #0d1a35 50%, #0a1528 100%);">
+        <div class="project-preview" style="background: linear-gradient(135deg, #e8eef8 0%, #dde6f5 50%, #e3eaf8 100%);">
           <div class="project-preview-placeholder">
             <div class="preview-icon">🏛️</div>
-            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">ERP &amp; Data Platform</span>
+            <span style="color:#0099bb; font-weight:600; font-size:0.95rem;">ERP &amp; Data Platform</span>
             <span style="font-size:0.75rem; opacity:0.6;">Consult America Inc</span>
           </div>
         </div>
@@ -905,10 +910,10 @@
 
       <!-- Project 1: NorthStar -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #0a1628 0%, #0f2040 50%, #08183a 100%);">
+        <div class="project-preview" style="background: linear-gradient(135deg, #e5ecf8 0%, #d8e5f5 50%, #e0eaf8 100%);">
           <div class="project-preview-placeholder">
             <div class="preview-icon">📊</div>
-            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">NorthStar</span>
+            <span style="color:#0099bb; font-weight:600; font-size:0.95rem;">NorthStar</span>
             <span style="font-size:0.75rem; opacity:0.6;">ERP &amp; Reporting Platform</span>
           </div>
         </div>
@@ -935,10 +940,10 @@
 
       <!-- Project 2: GoInStore -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #0d1a10 0%, #162a18 50%, #0a200e 100%);">
+        <div class="project-preview" style="background: linear-gradient(135deg, #e8f5ee 0%, #d8f0e5 50%, #e0f5eb 100%);">
           <div class="project-preview-placeholder">
             <div class="preview-icon">🛍️</div>
-            <span style="color:#22c55e; font-weight:600; font-size:0.95rem;">GoInStore</span>
+            <span style="color:#16a34a; font-weight:600; font-size:0.95rem;">GoInStore</span>
             <span style="font-size:0.75rem; opacity:0.6;">Live Video Retail Platform</span>
           </div>
         </div>
@@ -965,10 +970,10 @@
 
       <!-- Project 3: Fraud Detection -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #1a0a0a 0%, #2a1010 50%, #1a0818 100%);">
+        <div class="project-preview" style="background: linear-gradient(135deg, #f8e8ea 0%, #f5d8dc 50%, #f8e3e6 100%);">
           <div class="project-preview-placeholder">
             <div class="preview-icon">🔒</div>
-            <span style="color:#f87171; font-weight:600; font-size:0.95rem;">Fraud Detection</span>
+            <span style="color:#dc2626; font-weight:600; font-size:0.95rem;">Fraud Detection</span>
             <span style="font-size:0.75rem; opacity:0.6;">FinTech Security Platform</span>
           </div>
         </div>
@@ -995,10 +1000,10 @@
 
       <!-- Project 4: Strait of Hormuz -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #051428 0%, #0a2040 50%, #082030 100%);">
+        <div class="project-preview" style="background: linear-gradient(135deg, #e0ecf8 0%, #d5e5f5 50%, #dceaf8 100%);">
           <div class="project-preview-placeholder">
             <div class="preview-icon">🗺️</div>
-            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">Live Ship Tracker</span>
+            <span style="color:#0099bb; font-weight:600; font-size:0.95rem;">Live Ship Tracker</span>
             <span style="font-size:0.75rem; opacity:0.6;">Strait of Hormuz</span>
           </div>
         </div>
@@ -1027,12 +1032,10 @@
 
       <!-- Project 5: ResumeTailor -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #0a1428 0%, #1a0a28 50%, #0f1a35 100%);">
-          <div class="project-preview-placeholder">
-            <div class="preview-icon">🤖</div>
-            <span style="color:#00d4ff; font-weight:600; font-size:0.95rem;">AI Resume Tailor</span>
-            <span style="font-size:0.75rem; opacity:0.6;">Job Application Automation</span>
-          </div>
+        <div class="project-preview" style="background:#0f172a; padding:0;">
+          <video class="project-preview-video" autoplay muted loop playsinline>
+            <source src="files/ResumeTailorVideo.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="project-body">
           <div class="project-tags">
@@ -1055,19 +1058,17 @@
               View Live Site
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            <span class="live-badge" style="color:#00d4ff;"><span class="live-dot" style="background:#00d4ff;"></span> Live</span>
+            <span class="live-badge" style="color:#0099bb;"><span class="live-dot" style="background:#0099bb;"></span> Live</span>
           </div>
         </div>
       </div>
 
       <!-- Project 6: AppointEase -->
       <div class="project-card fade-up">
-        <div class="project-preview" style="background: linear-gradient(135deg, #051a10 0%, #0a2a18 50%, #082018 100%);">
-          <div class="project-preview-placeholder">
-            <div class="preview-icon">📅</div>
-            <span style="color:#22c55e; font-weight:600; font-size:0.95rem;">AppointEase</span>
-            <span style="font-size:0.75rem; opacity:0.6;">Smart Scheduling System</span>
-          </div>
+        <div class="project-preview" style="background:#0f172a; padding:0;">
+          <video class="project-preview-video" autoplay muted loop playsinline>
+            <source src="files/AppointmentEase.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="project-body">
           <div class="project-tags">
