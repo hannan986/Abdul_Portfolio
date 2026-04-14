@@ -376,6 +376,50 @@
     }
     .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
 
+    /* ── VIDEO SHOWCASE ── */
+    .video-showcase {
+      background: var(--bg-secondary);
+      padding: 3.5rem 0;
+      overflow: hidden;
+    }
+    .video-showcase-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 0 2rem;
+    }
+    .video-showcase-track-wrap { overflow: hidden; }
+    .video-showcase-track {
+      display: flex;
+      gap: 1.8rem;
+      width: max-content;
+      animation: marquee-left 28s linear infinite;
+      padding: 0.5rem 0.5rem;
+    }
+    .video-showcase-track:hover { animation-play-state: paused; }
+    .video-showcase-item {
+      width: 400px; flex-shrink: 0;
+      border-radius: 14px; overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .video-showcase-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(0,153,187,0.15);
+    }
+    .video-showcase-item video {
+      width: 100%; height: 230px;
+      object-fit: cover; display: block;
+    }
+    .video-showcase-label {
+      padding: 0.7rem 1.1rem;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--text-primary);
+      border-top: 1px solid var(--border);
+    }
+
     /* ── CONTACT ── */
     #contact { background: var(--bg-primary); }
     .contact-wrap {
@@ -627,6 +671,35 @@
       </div>
     </div>
   </section>
+
+  <!-- ── VIDEO SHOWCASE ── -->
+  <div class="video-showcase">
+    <div class="video-showcase-header">
+      <div class="section-label">Project Demos</div>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-top:0.4rem;">Watch the apps in action — hover to pause</p>
+    </div>
+    <div class="video-showcase-track-wrap">
+      <div class="video-showcase-track">
+        <div class="video-showcase-item">
+          <video autoplay muted loop playsinline><source src="files/ResumeTailorVideo.mp4" type="video/mp4"></video>
+          <div class="video-showcase-label">🤖 ResumeTailor — AI Resume Tailoring</div>
+        </div>
+        <div class="video-showcase-item">
+          <video autoplay muted loop playsinline><source src="files/AppointmentEase.mp4" type="video/mp4"></video>
+          <div class="video-showcase-label">📅 AppointEase — Smart Scheduling</div>
+        </div>
+        <!-- Duplicates for seamless loop -->
+        <div class="video-showcase-item">
+          <video autoplay muted loop playsinline><source src="files/ResumeTailorVideo.mp4" type="video/mp4"></video>
+          <div class="video-showcase-label">🤖 ResumeTailor — AI Resume Tailoring</div>
+        </div>
+        <div class="video-showcase-item">
+          <video autoplay muted loop playsinline><source src="files/AppointmentEase.mp4" type="video/mp4"></video>
+          <div class="video-showcase-label">📅 AppointEase — Smart Scheduling</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── ABOUT ── -->
   <section id="about">
